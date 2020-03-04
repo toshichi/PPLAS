@@ -2,20 +2,20 @@
 
 import sys
 import unittest
+import contextlib
 from io import StringIO
 
 
 class ProblemTest(unittest.TestCase):
-    def setUp(self):
-        self.captor = StringIO()
-        sys.stdout = self.captor
-
-    def tearDown(self):
-        sys.stdout = sys.__stdout__
+    def test_output(self):
+        import problem
 
     def test_main(self):
-        import problem
-        self.assertEqual(self.captor.getvalue(), 'Hello World!\n')
+        self.captor = StringIO()
+        with contextlib.redirect_stdout(self.captor):
+            self.test_output()
+        output = self.captor.getvalue()
+        self.assertEqual(output, 'Hello World!\n')
 
 
 if __name__ == '__main__':
