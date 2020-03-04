@@ -14,8 +14,9 @@ class ProblemTest(unittest.TestCase):
         self.captor = StringIO()
         with contextlib.redirect_stdout(self.captor):
             self.test_output()
-        output = self.captor.getvalue()
-        self.assertEqual(output, 'Hello World!\n')
+        actual = self.captor.getvalue()
+        expected = 'Hello World!\n'
+        self.assertEqual(actual, expected)
 
 
 if __name__ == '__main__':
